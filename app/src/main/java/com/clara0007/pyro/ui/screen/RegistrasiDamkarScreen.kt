@@ -62,6 +62,16 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
             modifier = Modifier.fillMaxWidth()
         )
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Input NIP
+        OutlinedTextField(
+            value = username,
+            onValueChange = { username = it },
+            label = { Text("Username") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
 
         //Input Email
