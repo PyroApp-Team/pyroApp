@@ -292,6 +292,9 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
             ) {
                 Text("Register")
             }
+
+        Spacer(modifier = Modifier.height(60.dp))
+
         }
     }
 
