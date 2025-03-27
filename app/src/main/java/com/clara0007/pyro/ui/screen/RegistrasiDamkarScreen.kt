@@ -1,6 +1,7 @@
 package com.clara0007.pyro.ui.screen
 
 import android.util.Patterns
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,10 +28,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.clara0007.pyro.R
 
 @Composable
 fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -> Unit) {
@@ -46,6 +52,13 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
+        Image(
+            painter = painterResource(id = R.drawable.logo_pyro_transparan),
+            contentDescription = "Logo PYRO",
+            modifier = Modifier
+                .width(120.dp)
+                .height(120.dp)
+        )
         Text(
             text = "Registrasi Damkar",
             style = MaterialTheme.typography.headlineLarge,
@@ -123,6 +136,7 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
             onValueChange = { confirmPassword = it },
             label = { Text("Konfirmasi Password") },
             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null)},
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password
             ),
@@ -149,6 +163,10 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                     onRegister(nip, username, email, phoneNumber, password)
                 }
             },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFE95502), // Warna Background
+                contentColor = Color.White, // Warna Teks
+            ),
             modifier = Modifier.fillMaxWidth().height(48.dp)
         ) {
             Text("Register")
