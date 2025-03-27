@@ -290,7 +290,7 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                 ),
                 modifier = Modifier.fillMaxWidth().height(48.dp)
             ) {
-                Text("Register")
+                Text("Sign Up")
             }
 
         Spacer(modifier = Modifier.height(60.dp))
