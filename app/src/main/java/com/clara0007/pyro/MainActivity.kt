@@ -1,16 +1,15 @@
 package com.clara0007.pyro
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.clara0007.pyro.ui.screen.RegistasiDamkarScreen
 import com.clara0007.pyro.ui.theme.PyroTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +18,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PyroTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                RegistasiDamkarScreen { nip, username, email, phoneNumber, password ->
+                    Log.d("REGISTER", "NIP: $nip, Username: $username, Email: $email, Phone: $phoneNumber, Password: $password")
+                    Toast.makeText(this, "Registrasi Berhasil!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainScreenPreview(){
     PyroTheme {
-        Greeting("Android")
+        RegistasiDamkarScreen (
+            onRegister = {nip, username, email, phoneNumber, password -> }
+        )
     }
 }
