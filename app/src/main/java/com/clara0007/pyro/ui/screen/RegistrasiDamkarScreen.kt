@@ -34,6 +34,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -193,6 +194,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                 onValueChange = { nip = it },
                 label = { Text("NIP") },
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                        shape = RoundedCornerShape(24.dp),
+                        singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -203,6 +212,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                 onValueChange = { username = it },
                 label = { Text("Username") },
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                singleLine = true,
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -217,6 +234,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                     keyboardType = KeyboardType.Email
                 ),
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                singleLine = true,
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -231,6 +256,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                     keyboardType = KeyboardType.Phone
                 ),
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                singleLine = true,
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -246,6 +279,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                     keyboardType = KeyboardType.Password
                 ),
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                singleLine = true,
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -261,6 +302,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
                     keyboardType = KeyboardType.Password
                 ),
                 modifier = Modifier.fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(24.dp),
+                singleLine = true,
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
 
             Spacer(modifier = Modifier.height(45.dp))
