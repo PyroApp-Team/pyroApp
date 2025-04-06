@@ -9,7 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.clara0007.pyro.ui.screen.RegistasiDamkarScreen
+import com.clara0007.pyro.ui.screen.RegistrasiDamkarScreen
 import com.clara0007.pyro.ui.theme.PyroTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PyroTheme {
-                RegistasiDamkarScreen { nip, username, email, phoneNumber, password ->
+                RegistrasiDamkarScreen { nip, username, email, phoneNumber, password ->
                     Log.d("REGISTER", "NIP: $nip, Username: $username, Email: $email, Phone: $phoneNumber, Password: $password")
                     Toast.makeText(this, "Registrasi Berhasil!", Toast.LENGTH_SHORT).show()
                 }
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreenPreview(){
     PyroTheme {
-        RegistasiDamkarScreen (
+        RegistrasiDamkarScreen (
             onRegister = {nip, username, email, phoneNumber, password -> }
         )
     }

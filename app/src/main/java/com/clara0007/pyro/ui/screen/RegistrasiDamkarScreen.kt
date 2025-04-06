@@ -51,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import com.clara0007.pyro.R
 
 @Composable
-fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -> Unit) {
+fun RegistrasiDamkarScreen(onRegister: (String, String, String, String, String) -> Unit ){
     var nip by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -59,11 +59,11 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
+    var selectedRole by remember { mutableStateOf("Damkar") }
+
     var errorMessage by remember { mutableStateOf("") }
 
     var selectedTab by remember { mutableIntStateOf(0) }
-
-    var selectedRole by remember { mutableStateOf("Damkar") }
 
     val scrollState = rememberScrollState()
 
@@ -148,14 +148,14 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Pilihan Damkar & Masyarakat
+        // Role Damkar dan Masyarakat
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(
                     width = 1.dp,
                     color = Color.LightGray,
-                    shape = RoundedCornerShape(24.dp)
+                    shape = RoundedCornerShape(30.dp) // Lengkungan
                 )
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, // Sejajar dan rata tengah
@@ -187,24 +187,6 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-
-            // Input NIP
-            OutlinedTextField(
-                value = nip,
-                onValueChange = { nip = it },
-                label = { Text("NIP") },
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                        shape = RoundedCornerShape(24.dp),
-                        singleLine = true,
-                    colors = TextFieldDefaults.colors(
-                        unfocusedIndicatorColor = Color.LightGray,
-                        focusedContainerColor = Color.Transparent,
-                        unfocusedContainerColor = Color.Transparent
-                    )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             // Input Username
             OutlinedTextField(
@@ -328,7 +310,7 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
             Button(
                 onClick = {
                     errorMessage =
-                        validateForm(nip, username, email, phoneNumber, password, confirmPassword)
+                        validateForm(username, email, phoneNumber, password, confirmPassword)
                     if (errorMessage.isEmpty()) {
                         onRegister(nip, username, email, phoneNumber, password)
                     }
@@ -349,14 +331,12 @@ fun RegistasiDamkarScreen(onRegister: (String, String, String, String, String) -
 
     // Fungsi validasi
     private fun validateForm(
-        nip: String,
         username: String,
         email: String,
         phoneNumber: String,
         password: String,
         confirmPassword: String
     ): String {
-        if (nip.isBlank()) return "NIP tidak boleh kosong"
         if (username.isBlank()) return "Username tidak boleh kosong"
         if (email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email)
                 .matches()
