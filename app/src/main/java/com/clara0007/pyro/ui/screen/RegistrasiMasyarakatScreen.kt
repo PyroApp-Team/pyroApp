@@ -31,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -51,18 +52,18 @@ import androidx.compose.ui.unit.dp
 import com.clara0007.pyro.R
 
 @Composable
-fun RegistasiMasyarakatScreen(onRegister: (String, String, String, String) -> Unit) {
+fun RegistrasiMasyarakatScreen(onRegister: (String, String, String, String) -> Unit) {
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
+    var selectedRole by remember { mutableStateOf("Damkar") }
+
     var errorMessage by remember { mutableStateOf("") }
 
     var selectedTab by remember { mutableIntStateOf(0) }
-
-    var selectedRole by remember { mutableStateOf("Damkar") }
 
     val scrollState = rememberScrollState()
 
@@ -147,14 +148,14 @@ fun RegistasiMasyarakatScreen(onRegister: (String, String, String, String) -> Un
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Pilihan Damkar & Masyarakat
+        // Role Damkar dan Masyarakat
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(
                     width = 1.dp,
                     color = Color.LightGray,
-                    shape = RoundedCornerShape(24.dp)
+                    shape = RoundedCornerShape(30.dp) // Lengkungan
                 )
                 .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly, // Sejajar dan rata tengah
