@@ -21,6 +21,9 @@ fun AppNavHost(
                 onRegister = {
                     nip, username, email, phoneNumber, password ->
                     // Aksi setelah registrasi Damkar, misal: navController.navigate("beranda")
+                },
+                onLogin = {
+                    username, password ->
                 }
             )
         }

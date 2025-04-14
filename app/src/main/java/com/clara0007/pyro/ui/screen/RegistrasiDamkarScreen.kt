@@ -51,7 +51,10 @@ import androidx.compose.ui.unit.dp
 import com.clara0007.pyro.R
 
 @Composable
-fun RegistrasiDamkarScreen(onRegister: (String, String, String, String, String) -> Unit ){
+fun RegistrasiDamkarScreen(
+    onRegister: (String, String, String, String, String) -> Unit,
+    onLogin: (String, String) -> Unit
+) {
     var nip by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -67,265 +70,394 @@ fun RegistrasiDamkarScreen(onRegister: (String, String, String, String, String) 
 
     val scrollState = rememberScrollState()
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(scrollState),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo_pyro_transparan),
-            contentDescription = "Logo PYRO",
-            modifier = Modifier
-                .width(130.dp)
-                .height(130.dp)
-        )
-
-        Spacer(modifier = Modifier.height(5.dp))
-
-        TabRow(
-            selectedTabIndex = selectedTab,
-            modifier = Modifier.fillMaxWidth(),
-            containerColor = Color.Transparent, // Buat background transparan
-            contentColor = MaterialTheme.colorScheme.primary // Warna teks/tab
+        Column(
+            modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Tab(
-                selected = selectedTab == 0,
-                onClick = { selectedTab = 0 },
-                text = { Text("Buat Akun") }
-            )
-            Tab(
-                selected = selectedTab == 1,
-                onClick = { selectedTab = 1 },
-                text = { Text("Login") }
-            )
-        }
-
-        Spacer(modifier = Modifier.height(35.dp))
-
-        // Continue with Google
-        OutlinedButton(
-            onClick = { /* Handle Google Sign In */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            border = BorderStroke(1.dp, Color.Blue),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.google),
-                contentDescription = "Google Icon",
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Continue with Google")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Or dengan Garis Pembatas
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            HorizontalDivider(
-                color = Color.Gray,
+            Image(
+                painter = painterResource(id = R.drawable.logo_pyro_transparan),
+                contentDescription = "Logo PYRO",
                 modifier = Modifier
-                    .weight(1f)
-                    .height(1.dp)
+                    .width(130.dp)
+                    .height(130.dp)
             )
-            Text(
-                text = "Or",
-                modifier = Modifier.padding(horizontal = 8.dp),
-                color = Color.Gray
-            )
-            HorizontalDivider(
-                color = Color.Gray,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(1.dp)
-            )
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(5.dp))
 
-        // Role Damkar dan Masyarakat
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(30.dp) // Lengkungan
-                )
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly, // Sejajar dan rata tengah
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // RadioButton Damkar
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable { selectedRole = "Damkar" }
+            TabRow(
+                selectedTabIndex = selectedTab,
+                modifier = Modifier.fillMaxWidth(),
+                containerColor = Color.Transparent, // Buat background transparan
+                contentColor = MaterialTheme.colorScheme.primary // Warna teks/tab
             ) {
-                RadioButton(
-                    selected = selectedRole == "Damkar",
-                    onClick = { selectedRole = "Damkar" }
+                Tab(
+                    selected = selectedTab == 0,
+                    onClick = { selectedTab = 0 },
+                    text = { Text("Buat Akun") }
                 )
-                Text(text = "Damkar")
+                Tab(
+                    selected = selectedTab == 1,
+                    onClick = { selectedTab = 1 },
+                    text = { Text("Login") }
+                )
             }
 
-            // RadioButton Masyarakat
+            Spacer(modifier = Modifier.height(35.dp))
+
+            // Continue with Google
+            OutlinedButton(
+                onClick = { /* Handle Google Sign In */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                border = BorderStroke(1.dp, Color.Blue),
+                shape = RoundedCornerShape(24.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.google),
+                    contentDescription = "Google Icon",
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Continue with Google")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Or dengan Garis Pembatas
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable { selectedRole = "Masyarakat" }
+                modifier = Modifier.fillMaxWidth()
             ) {
-                RadioButton(
-                    selected = selectedRole == "Masyarakat",
-                    onClick = { selectedRole = "Masyarakat" }
+                HorizontalDivider(
+                    color = Color.Gray,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(1.dp)
                 )
-                Text(text = "Masyarakat")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-            // Input Username
-            OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text("Username") },
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.LightGray,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            //Input Email
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text("Email") },
-                leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Email
-                ),
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.LightGray,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Input Nomor Telepon
-            OutlinedTextField(
-                value = phoneNumber,
-                onValueChange = { phoneNumber = it },
-                label = { Text("Nomor Telepon") },
-                leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Phone
-                ),
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.LightGray,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Input Password
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Password") },
-                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Password
-                ),
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.LightGray,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Input Konfirmasi Password
-            OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = { Text("Konfirmasi Password") },
-                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Password
-                ),
-                modifier = Modifier.fillMaxWidth()
-                    .height(56.dp),
-                shape = RoundedCornerShape(24.dp),
-                singleLine = true,
-                colors = TextFieldDefaults.colors(
-                    unfocusedIndicatorColor = Color.LightGray,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent
-                )
-            )
-
-            Spacer(modifier = Modifier.height(45.dp))
-
-            // Menampilkan error kalau ada
-            if (errorMessage.isNotEmpty()) {
                 Text(
-                    text = errorMessage,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodySmall
+                    text = "Or",
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    color = Color.Gray
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                HorizontalDivider(
+                    color = Color.Gray,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(1.dp)
+                )
             }
 
-            // Tombol Register
-            Button(
-                onClick = {
-                    errorMessage =
-                        validateForm(username, email, phoneNumber, password, confirmPassword)
-                    if (errorMessage.isEmpty()) {
-                        onRegister(nip, username, email, phoneNumber, password)
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (selectedTab == 0) {
+                // Role Damkar dan Masyarakat
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(
+                            width = 1.dp,
+                            color = Color.LightGray,
+                            shape = RoundedCornerShape(30.dp) // Lengkungan
+                        )
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly, // Sejajar dan rata tengah
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // RadioButton Damkar
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable { selectedRole = "Damkar" }
+                    ) {
+                        RadioButton(
+                            selected = selectedRole == "Damkar",
+                            onClick = { selectedRole = "Damkar" }
+                        )
+                        Text(text = "Damkar")
                     }
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFE95502), // Warna Background
-                    contentColor = Color.White, // Warna Teks
-                ),
-                modifier = Modifier.fillMaxWidth().height(48.dp)
-            ) {
-                Text("Sign Up")
+
+                    // RadioButton Masyarakat
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable { selectedRole = "Masyarakat" }
+                    ) {
+                        RadioButton(
+                            selected = selectedRole == "Masyarakat",
+                            onClick = { selectedRole = "Masyarakat" }
+                        )
+                        Text(text = "Masyarakat")
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Input Username
+                OutlinedTextField(
+                    value = username,
+                    onValueChange = { username = it },
+                    label = { Text("Username") },
+                    modifier = Modifier.fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                //Input Email
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Email
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Input Nomor Telepon
+                OutlinedTextField(
+                    value = phoneNumber,
+                    onValueChange = { phoneNumber = it },
+                    label = { Text("Nomor Telepon") },
+                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Phone
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Input Password
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Input Konfirmasi Password
+                OutlinedTextField(
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    label = { Text("Konfirmasi Password") },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(45.dp))
+
+                // Menampilkan error kalau ada
+                if (errorMessage.isNotEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+
+                // Tombol Register
+                Button(
+                    onClick = {
+                        errorMessage =
+                            validateForm(username, email, phoneNumber, password, confirmPassword)
+                        if (errorMessage.isEmpty()) {
+                            onRegister(nip, username, email, phoneNumber, password)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFE95502), // Warna Background
+                        contentColor = Color.White, // Warna Teks
+                    ),
+                    modifier = Modifier.fillMaxWidth().height(48.dp)
+                ) {
+                    Text("Sign Up")
+                }
+
+                Spacer(modifier = Modifier.height(60.dp))
+
+            } else {
+                var loginUsername by remember { mutableStateOf("") }
+                var loginPassword by remember { mutableStateOf("") }
+                var loginError by remember { mutableStateOf("") }
+
+                // Role Damkar dan Masyarakat
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(
+                            width = 1.dp,
+                            color = Color.LightGray,
+                            shape = RoundedCornerShape(30.dp) // Lengkungan
+                        )
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly, // Sejajar dan rata tengah
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // RadioButton Damkar
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable { selectedRole = "Damkar" }
+                    ) {
+                        RadioButton(
+                            selected = selectedRole == "Damkar",
+                            onClick = { selectedRole = "Damkar" }
+                        )
+                        Text(text = "Damkar")
+                    }
+
+                    // RadioButton Masyarakat
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.clickable { selectedRole = "Masyarakat" }
+                    ) {
+                        RadioButton(
+                            selected = selectedRole == "Masyarakat",
+                            onClick = { selectedRole = "Masyarakat" }
+                        )
+                        Text(text = "Masyarakat")
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = loginUsername,
+                    onValueChange = { loginUsername = it },
+                    label = { Text("Username") },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Email
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = loginPassword,
+                    onValueChange = { loginPassword = it },
+                    label = { Text("Password") },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                if (loginError.isNotEmpty()) {
+                    Text(
+                        text = loginError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+
+                Spacer(modifier = Modifier.height(15.dp))
+                
+                Button(
+                    onClick = {
+                        loginError =
+                            (if (loginUsername.isBlank() && !loginPassword.isNotBlank()) {
+                                onLogin(loginUsername, loginPassword)
+                            } else {
+                                errorMessage = "Username dan Password tidak boleh kosong"
+                            }
+                                    ).toString()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFE95502),
+                        contentColor = Color.White,
+                    ),
+                    modifier = Modifier.fillMaxWidth().height(48.dp)
+                ) {
+                    Text("Login")
+                }
+                // Tampilkan error message
+                if (errorMessage.isNotEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
-
-        Spacer(modifier = Modifier.height(60.dp))
-
         }
     }
 
