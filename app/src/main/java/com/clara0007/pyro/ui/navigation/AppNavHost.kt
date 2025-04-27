@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.clara0007.pyro.ui.screen.RegistrasiDamkarScreen
 import com.clara0007.pyro.ui.screen.Screen
+import com.clara0007.pyro.ui.screen.DashboardDamkar
 
 @Composable
 fun AppNavHost(
@@ -20,12 +21,16 @@ fun AppNavHost(
             RegistrasiDamkarScreen(
                 onRegister = {
                     nip, username, email, phoneNumber, password ->
-                    // Aksi setelah registrasi Damkar, misal: navController.navigate("beranda")
+                    navController.navigate(Screen.DashboardDamkar.route)
                 },
                 onLogin = {
                     username, password ->
+                    navController.navigate(Screen.DashboardDamkar.route)
                 }
             )
+        }
+        composable(route = Screen.DashboardDamkar.route) {
+            DashboardDamkar()
         }
     }
 }

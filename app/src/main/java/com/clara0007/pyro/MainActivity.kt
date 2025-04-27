@@ -2,15 +2,12 @@ package com.clara0007.pyro
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.clara0007.pyro.ui.screen.RegistrasiDamkarScreen
+import com.clara0007.pyro.ui.screen.DashboardDamkar
 import com.clara0007.pyro.ui.theme.PyroTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,20 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PyroTheme {
-                val context = LocalContext.current
-                RegistrasiDamkarScreen(
-                    onRegister = { nip, username, email, phoneNumber, password ->
-                        Log.d(
-                            "REGISTER",
-                            "NIP: $nip, Username: $username, Email: $email, Phone: $phoneNumber, Password: $password"
-                        )
-                        Toast.makeText(context, "Registrasi Berhasil!", Toast.LENGTH_SHORT).show()
-                    },
-                    onLogin = { username, password ->
-                        Log.d("LOGIN", "Username: $username, Password: $password")
-                        Toast.makeText(context, "Login Berhasil!", Toast.LENGTH_SHORT).show()
-                    }
-                )
+                DashboardDamkar()
             }
         }
     }
@@ -43,9 +27,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreenPreview(){
     PyroTheme {
-        RegistrasiDamkarScreen (
-            onRegister = {nip, username, email, phoneNumber, password -> },
-            onLogin = { username, password -> }
-        )
+        DashboardDamkar()
     }
 }
