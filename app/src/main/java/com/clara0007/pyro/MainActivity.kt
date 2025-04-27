@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.clara0007.pyro.ui.screen.DashboardDamkar
+import com.clara0007.pyro.ui.screen.DashboardMasyarakat
 import com.clara0007.pyro.ui.theme.PyroTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PyroTheme {
-                DashboardDamkar()
+                DashboardMasyarakat()
             }
         }
     }
@@ -27,6 +28,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreenPreview(){
     PyroTheme {
-        DashboardDamkar()
+        DashboardMasyarakat()
     }
 }
